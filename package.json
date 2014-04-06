@@ -1,0 +1,30 @@
+{
+    "name"           : "backbone.boneyard",
+    "version"        : "0.0.0",
+    "description"    : "The missing bones of Backbone.js",
+    "main"           : "index.js",
+    "scripts"        : {
+        "bower": "./node_modules/bower/bin/bower install",
+        "test" : "./node_modules/grunt-cli/bin/grunt jasmine"
+    },
+    "keywords"       : [
+        "backbone",
+        "backbone.js",
+        "underscore",
+        "plugin",
+        "utilities",
+        "client",
+        "bones"
+    ],
+    "author"         : {
+        "name" : "Gur Dotan",
+        "email": "gurdotan@gmail.com",
+        "web"  : "http://github.com/gurdotan"
+    },
+    "license"        : "MIT",
+    "devDependencies": {
+        "grunt"                : "~0.4.4",
+        "grunt-contrib-jasmine": "~0.6.3",
+        "grunt-contrib-watch"  : "~0.6.1"
+    }
+}

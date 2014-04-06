@@ -1,0 +1,29 @@
+{
+  "name": "backbone.boneyard",
+  "version": "0.0.0",
+  "authors": [
+    "Gur Dotan <gurdotan@gmail.com>"
+  ],
+  "description": "The missing bones of Backbone.js",
+  "keywords": [
+    "backbone",
+    "backbone.js",
+    "underscore",
+    "plugin",
+    "utilities",
+    "client",
+    "bones"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/soomla/backbone.boneyard",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "backbone": "~1.1.2"
+  }
+}
