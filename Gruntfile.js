@@ -4,7 +4,11 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         jasmine : {
-            src : 'src/**/*.js',
+            src : [
+                'bower_components/underscore/underscore.js',
+                'bower_components/backbone/backbone.js',
+                'src/**/*.js'
+            ],
             options : {
                 specs : 'spec/**/*.js'
             }
