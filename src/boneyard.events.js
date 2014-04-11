@@ -55,4 +55,3 @@ _.each(['Model', 'Collection', 'View', 'Router', 'History'], function(entity) {
 });
 _.extend(Backbone, BoneyardEvents);
 _.extend(Backbone.Events, BoneyardEvents);
-
