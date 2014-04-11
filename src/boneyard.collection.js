@@ -24,27 +24,28 @@ _.extend(Backbone.Collection.prototype, {
      * Finds the model with the given ID and removes it from a collection.
      * Pass {fallback : "first" \ "last"} to indicate that if the model
      * isn't found in the collection, default to removing the first \ last model
-     * @param id
-     * @param options
-     * @returns {*}
      */
     removeById : function(id, options) {
+        options || (options = {});
+
         if (!_.isUndefined(id)) {
             var model = this.get(id);
-            return this.remove(model);
-        }
 
-        if (options) {
-            if (options.fallback === "first") 	return this.remove(this.first());
-            if (options.fallback === "last") 	return this.remove(this.last());
+            if (_.isUndefined(model)) {
+                if (options.fallback === "first") return this.remove(this.first(), options);
+                if (options.fallback === "last")  return this.remove(this.last(), options);
+            }
+            return this.remove(model, options);
         }
-
-        return undefined;
     },
 
+    /**
+     * `get`s the model with the given ID form the collection.  If it doesn't exist,
+     * add it to the collection and return it
+     */
     getOrAdd : function(id) {
         var model = this.get(id);
-        if (_.isUndefined(model)) this.add({id : id});
-        return this.get(id);
+        if (_.isUndefined(model)) model = this.add({id : id});
+        return model;
     }
 });
