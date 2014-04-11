@@ -85,4 +85,99 @@ describe("Boneyard", function() {
         });
     });
 
+
+    describe("Events", function() {
+
+        var source = _.clone(Backbone.Events),
+            target = _.clone(Backbone.Events),
+            helper = {callback: function(){}},
+            helper2 = {callback: function(){}};
+
+        describe("#forwardEvent", function() {
+
+            it("should forward an event to the target object", function() {
+                spyOn(helper, "callback");
+                target.on("someEvent", helper.callback);
+                source.forwardEvent("someEvent", target);
+                source.trigger("someEvent");
+                expect(helper.callback).toHaveBeenCalled();
+            });
+
+            it("should forward an event to the target object with a different name", function() {
+                spyOn(helper, "callback");
+                target.on("newEvent", helper.callback);
+                source.forwardEvent("someEvent", target, "newEvent");
+                source.trigger("someEvent");
+                expect(helper.callback).toHaveBeenCalled();
+            });
+
+            it("should be chainable", function() {
+                var s = source.forwardEvent("someEvent", target, "newEvent");
+                expect(s).toEqual(source);
+            });
+        });
+
+
+        describe("#bubbleEventsTo", function() {
+
+            it("should bubble all events to the target object", function() {
+                spyOn(helper, "callback");
+                target.on("someEvent", helper.callback);
+                source.bubbleEventsTo(target);
+                source.trigger("someEvent");
+                expect(helper.callback).toHaveBeenCalled();
+            });
+
+            it("should bubble specific given events to the target object", function() {
+                spyOn(helper, "callback");
+                spyOn(helper2, "callback");
+                target.on("event:first", helper.callback);
+                target.on("event:second", helper2.callback);
+                source.bubbleEventsTo(target, "event:first event:second");
+                source.trigger("event:first");
+                expect(helper.callback).toHaveBeenCalled();
+                source.trigger("event:second");
+                expect(helper2.callback).toHaveBeenCalled();
+            });
+
+            it("should throw an error if the target is undefined", function() {
+                expect(function() {
+                    source.bubbleEventsTo(null);
+                }).toThrow();
+            });
+
+            it("should throw an error if the target doesn't have Backbone.Events mixed in", function() {
+                expect(function() {
+                    source.bubbleEventsTo({});
+                }).toThrow();
+            });
+
+            it("should be chainable", function() {
+                var s = source.bubbleEventsTo(target);
+                expect(s).toEqual(source);
+            });
+        });
+
+
+        describe("#listenToMany", function() {
+
+            it("should listen to the given event from multiple targets", function() {
+                spyOn(helper, "callback");
+                var source2 = _.clone(Backbone.Events);
+                target.listenToMany([source, source2], "someEvent", helper.callback);
+
+                // TODO: Check helper callback is called twice
+                source.trigger("someEvent");
+                expect(helper.callback).toHaveBeenCalled();
+                source2.trigger("someEvent");
+                expect(helper.callback).toHaveBeenCalled();
+            });
+
+            it("should be chainable", function() {
+                var t = target.listenToMany([source], "someEvent", helper.callback);
+                expect(t).toEqual(target);
+            });
+        });
+
+    });
 });
