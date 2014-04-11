@@ -4,7 +4,7 @@ describe("Boneyard", function() {
     var Model = Backbone.Model.extend();
     var Collection = Backbone.Collection.extend({model: Model});
 
-    describe("Collecion", function() {
+    describe("Backbone.Collecion", function() {
 
         var collection, model, helper, size;
 
@@ -86,7 +86,7 @@ describe("Boneyard", function() {
     });
 
 
-    describe("Events", function() {
+    describe("Backbone.Events", function() {
 
         var source = _.clone(Backbone.Events),
             target = _.clone(Backbone.Events),
@@ -179,5 +179,18 @@ describe("Boneyard", function() {
             });
         });
 
+    });
+
+    describe("Backbone.Model", function() {
+
+        describe("#unsetMany", function() {
+
+            it("should unset multiple attributes", function() {
+                var model = new Backbone.Model({a:1, b:2});
+                model.unsetMany("a", "b");
+                expect(model.get("a")).toBeUndefined();
+                expect(model.get("b")).toBeUndefined();
+            });
+        });
     });
 });
