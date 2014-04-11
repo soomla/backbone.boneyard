@@ -21,6 +21,10 @@
     "email": "gurdotan@gmail.com",
     "web": "http://github.com/gurdotan"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soomla/backbone.boneyard"
+  },
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.4",
