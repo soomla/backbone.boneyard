@@ -3,6 +3,19 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        meta: {
+            version: '<%= pkg.version %>',
+            banner:
+                '// Backbone.Boneyard\n' +
+                '// v<%= pkg.version %>\n' +
+                '//\n' +
+                '// Copyright (c)<%= grunt.template.today("yyyy") %> SOOMLA inc.\n' +
+                '// Distributed under MIT license\n' +
+                '//\n' +
+                '// <%= pkg.repository.url %>\n' +
+                '\n'
+        },
         jasmine : {
             src : [
                 'bower_components/underscore/underscore.js',
@@ -22,13 +35,25 @@ module.exports = function(grunt) {
             dist: {
                 src: ['src/boneyard.js', 'src/boneyard.events.js', 'src/boneyard.model.js', 'src/boneyard.collection.js'],
                 dest: 'dist/backbone.boneyard.js'
+            },
+
+            // A task for prepending the banner to the development
+            // and minified versions of the built files
+            'banner': {
+                options: {
+                    banner: "<%= meta.banner %>"
+                },
+                files: {
+                    'dist/backbone.boneyard.js': ['dist/backbone.boneyard.js'],
+                    'dist/backbone.boneyard.min.js': 'dist/backbone.boneyard.min.js'
+                }
             }
         },
         umd: {
             all: {
                 src: 'dist/backbone.boneyard.js',
-                indent: '    ', // optional, indent source code
-                deps: { // optional
+                indent: '    ',                     // optional, indent source code
+                deps: {                             // optional
                     'default': ['Backbone'],
                     amd: ['backbone'],
                     cjs: ['backbone'],
@@ -37,7 +62,7 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-            my_target: {
+            dist: {
                 files: {
                     'dist/backbone.boneyard.min.js': ['dist/backbone.boneyard.js']
                 }
@@ -60,6 +85,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-docco');
     grunt.loadNpmTasks('grunt-umd');
 
+
     // Register tasks
-    grunt.registerTask('default', ['jasmine', 'clean', 'concat:dist', 'umd', 'uglify', 'docco']);
+    grunt.registerTask('default', ['jasmine', 'clean', 'concat:dist', 'umd', 'uglify', 'concat:banner', 'docco']);
 };
