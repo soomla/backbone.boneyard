@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "bower": "./node_modules/bower/bin/bower install",
-    "test": "./node_modules/grunt-cli/bin/grunt jasmine"
+    "test": "grunt travis --verbose"
   },
   "keywords": [
     "backbone",

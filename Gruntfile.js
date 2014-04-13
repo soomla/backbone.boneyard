@@ -87,5 +87,6 @@ module.exports = function(grunt) {
 
 
     // Register tasks
+    grunt.registerTask('travis', 'jasmine');
     grunt.registerTask('default', ['jasmine', 'clean', 'concat:dist', 'umd', 'uglify', 'concat:banner', 'docco']);
 };
