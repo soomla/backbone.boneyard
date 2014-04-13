@@ -17,16 +17,16 @@ module.exports = function(grunt) {
             files: '**/*.js',
             tasks: ['jasmine']
         },
-        clean: ['build'],
+        clean: ['dist'],
         concat: {
             dist: {
                 src: ['src/boneyard.events.js', 'src/boneyard.model.js', 'src/boneyard.collection.js'],
-                dest: 'build/backbone.boneyard.js'
+                dest: 'dist/backbone.boneyard.js'
             }
         },
         umd: {
             all: {
-                src: 'build/backbone.boneyard.js',
+                src: 'dist/backbone.boneyard.js',
                 indent: '    ', // optional, indent source code
                 deps: { // optional
                     'default': ['Backbone'],
@@ -39,8 +39,14 @@ module.exports = function(grunt) {
         uglify: {
             my_target: {
                 files: {
-                    'build/backbone.boneyard.min.js': ['build/backbone.boneyard.js']
+                    'dist/backbone.boneyard.min.js': ['dist/backbone.boneyard.js']
                 }
+            }
+        },
+        docco: {
+            src: ['dist/backbone.boneyard.js'],
+            options: {
+                output: 'docs/'
             }
         }
     });
@@ -51,8 +57,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-docco');
     grunt.loadNpmTasks('grunt-umd');
 
     // Register tasks
-    grunt.registerTask('default', ['jasmine', 'clean', 'concat:dist', 'umd', 'uglify']);
+    grunt.registerTask('default', ['jasmine', 'clean', 'concat:dist', 'umd', 'uglify', 'docco']);
 };
