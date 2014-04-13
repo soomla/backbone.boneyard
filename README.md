@@ -2,6 +2,8 @@
 
 ***The missing bones of Backbone.js.***
 
+[![Build Status](https://travis-ci.org/soomla/backbone.boneyard.svg?branch=master)](https://travis-ci.org/soomla/backbone.boneyard)
+
 A set of utility functions (hence "bones") for models, collections and events.  These functions compliment Backbone's basic functionality with more advanced capabilities which sometimes seem to be needed when using Backbone, but aren't officially part of the library.
 
 Read the [annotated source code](http://soomla.github.io/backbone.boneyard/docs/backbone.boneyard.html).
