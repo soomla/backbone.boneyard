@@ -1,10 +1,5 @@
 _.extend(Backbone.Collection.prototype, {
 
-    //
-    // Moves a model to the given index, if different from its current index. Handy
-    // for shuffling models after they've been pulled into a new position via
-    // drag and drop.
-    //
     move : function(model, toIndex, options) {
         (options) || (options = {});
 
@@ -24,19 +19,18 @@ _.extend(Backbone.Collection.prototype, {
         }
     },
 
-    //
-    // Finds the model with the given ID and removes it from a collection.
-    // Pass {fallback : "first" \ "last"} to indicate that if the model
-    // isn't found in the collection, default to removing the first \ last model
-    //
     removeById : function(id, options) {
 
         // Any `options` passed will be delegated to `Collection#remove`.
         options || (options = {});
         if (!_.isUndefined(id)) {
-            var model = this.get(id);
 
+            // Check if the model with the given ID exists.
+            var model = this.get(id);
             if (_.isUndefined(model)) {
+
+                // Pass {fallback : "first" \ "last"} to indicate that if the model
+                // isn't found in the collection, default to removing the first \ last model.
                 if (options.fallback === "first") return this.remove(this.first(), options);
                 if (options.fallback === "last")  return this.remove(this.last(), options);
             }
@@ -44,15 +38,15 @@ _.extend(Backbone.Collection.prototype, {
         }
     },
 
-    //
-    // `get`s the model with the given ID from the collection.  If it doesn't exist,
-    // create it, add it to the collection and return it.
-    //
     getOrAdd : function(id, options) {
 
         // Any `options` passed will be delegated to `Collection#add`.
         options || (options = {});
+
+        // `get` the model with the given ID from the collection.
         var model = this.get(id);
+
+        // If it doesn't exist, create it, add it to the collection and return it.
         if (_.isUndefined(model)) model = this.add({id : id}, options);
         return model;
     }

@@ -1,16 +1,22 @@
 var BoneyardEvents = {
+
     forwardEvent : function(event, target, targetEvent) {
         var source = this;
+
+        // Listen to the source object for `event`.
         target.listenTo(source, event, function() {
             var args = _.toArray(arguments);
 
-            // Forward to the target event.  If none was give, forward to same event name
+            // Forward to the target event.  If none was give, forward to same event name.
             target.trigger.apply(target, [targetEvent || event].concat(args));
         });
 
         return this;
     },
     bubbleEventsTo : function(target) {
+
+        // Don't allow passing a target object that is undefined,
+        // or that doesn't have events mixed into it.
         if (!target) throw "Error: can't bubble events to an undefined target.";
         if (!target.trigger) throw "Error: target object must have Backbone.Events mixed in."
         var slice = Array.prototype.slice;
@@ -42,6 +48,7 @@ var BoneyardEvents = {
         }
         return this;
     },
+
     listenToMany : function(objs, event, listener) {
         _.each(objs, function(obj) {
             this.listenTo(obj, event, listener);
