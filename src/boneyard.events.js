@@ -20,7 +20,7 @@ var BoneyardEvents = {
 
             //
             // The function was called without specific events. Bubble all events.
-            // Example: bubbleEventsTo(target)
+            // Example: `bubbleEventsTo(target)`
             //
             this.on("all", function() {
                 Backbone.Events.trigger.apply(target, arguments);
@@ -29,7 +29,7 @@ var BoneyardEvents = {
 
             //
             // The function was called with multiple event strings.
-            // Example: bubbleEventsTo(target, "change:name change:price")
+            // Example: `bubbleEventsTo(target, "change:name change:price")`
             //
             events = events[0].split(/\s+/);
             _.each(events, function(event) {
