@@ -5,6 +5,14 @@ describe("Boneyard", function() {
     var Collection = Backbone.Collection.extend({model: Model});
     var helper = {callback: function() {}};
 
+    describe("Boneyard", function() {
+
+        it("should have a namespace and version", function() {
+            expect(Backbone.Boneyard).toBeDefined();
+            expect(typeof Backbone.Boneyard.VERSION).toBe("string");
+        });
+    });
+
     describe("Backbone.Collecion", function() {
 
         var collection, model, size;

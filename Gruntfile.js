@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         clean: ['dist'],
         concat: {
             dist: {
-                src: ['src/boneyard.events.js', 'src/boneyard.model.js', 'src/boneyard.collection.js'],
+                src: ['src/boneyard.js', 'src/boneyard.events.js', 'src/boneyard.model.js', 'src/boneyard.collection.js'],
                 dest: 'dist/backbone.boneyard.js'
             }
         },
